@@ -10,8 +10,8 @@ class UserModel(Base):
     __tablename__ = "users"
 
     public_key = Column(String, primary_key=True, nullable=False)
-    created_at = Column(DateTime, server_default=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
-    updated_at = Column(DateTime, server_default=datetime.now().strftime("%d-%m-%Y %H:%M:%S"), onupdate=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+    created_at = Column(DateTime, server_default=datetime.now().strftime("%m-%d-%Y %H:%M:%S"))
+    updated_at = Column(DateTime, server_default=datetime.now().strftime("%m-%d-%Y %H:%M:%S"), onupdate=datetime.now().strftime("%m-%d-%Y %H:%M:%S"))
 
 
 class UserSessionModel(Base):
@@ -23,5 +23,5 @@ class UserSessionModel(Base):
 
     csrf_token = Column(String, nullable=False, default=uuid4())
 
-    created_at = Column(DateTime, server_default=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
-    updated_at = Column(DateTime, server_default=datetime.now().strftime("%d-%m-%Y %H:%M:%S"), onupdate=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+    created_at = Column(DateTime, server_default=datetime.now().strftime("%m-%d-%Y %H:%M:%S"))
+    updated_at = Column(DateTime, server_default=datetime.now().strftime("%m-%d-%Y %H:%M:%S"), onupdate=datetime.now().strftime("%m-%d-%Y %H:%M:%S"))
