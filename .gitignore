@@ -1,4 +1,5 @@
 hidden-folder/
+ignored_files/
 .env
 
 __pycache__
