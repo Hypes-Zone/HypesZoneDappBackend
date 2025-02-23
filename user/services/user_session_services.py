@@ -1,3 +1,5 @@
+import secrets
+
 from uuid import uuid4
 
 from sqlalchemy.orm import Session
@@ -61,6 +63,38 @@ def get_new_csrf_user_session(user_session: UserSessionModel, db: Session) -> Us
     :return:
     """
     user_session.csrf_token = uuid4()
+    db.add(user_session)
+    db.commit()
+    return user_session
+
+
+def get_jwt_secret(user_session: UserSessionModel, db: Session) -> str:
+    """
+    Get JWT Secret
+    :param user_session:
+    :param db:
+    :return:
+    """
+    jwt_secret = user_session.jwt_secret
+    if not jwt_secret:
+        jwt_secret = secrets.token_hex(20)
+        user_session.jwt_secret = jwt_secret
+        db.add(user_session)
+        db.commit()
+
+    return jwt_secret
+
+
+def save_jwt_token(user_session: UserSessionModel, jwt_token: str, db: Session) -> UserSessionModel | None:
+    """
+    Save JWT Token
+    :param user_session:
+    :param jwt_token:
+    :param db:
+    :return:
+    """
+    user_session.jwt = jwt_token
+
     db.add(user_session)
     db.commit()
     return user_session

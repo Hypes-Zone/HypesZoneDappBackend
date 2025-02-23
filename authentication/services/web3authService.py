@@ -22,7 +22,6 @@ class Web3AuthService:
         self.signature = signature
         self.original_message = original_message
         self.db = db
-        self.shared_secret = settings.SHARED_SECRET
 
     def verify_signed_message(self):
         """

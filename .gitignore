@@ -3,3 +3,5 @@ ignored_files/
 .env
 
 __pycache__
+
+test.db

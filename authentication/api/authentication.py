@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, status, HTTPException
 
 from sqlalchemy.orm import Session
 
+from authentication.services.JWTService import JWTService
 from authentication.services.web3authService import Web3AuthService
 from db.connector import get_db
 
@@ -67,4 +68,8 @@ async def sign_in(data: dict, db: Session = Depends(get_db)):
     if not signature_verified:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
+    # Get a JWT token
+    jwt_service = JWTService(public_key=public_key, user_session=user_session, db=db)
+    jwt_token = jwt_service.get_new_jwt_token()
     return {"jwt": "JWT_TOKEN"}
+

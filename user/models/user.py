@@ -19,6 +19,8 @@ class UserSessionModel(Base):
 
     public_key = Column(String, primary_key=True, nullable=False)
     jwt = Column(String, nullable=True)
+    jwt_secret = Column(String, nullable=True)
+
     signed_message = Column(String, nullable=True)
 
     csrf_token = Column(String, nullable=False, default=uuid4())
