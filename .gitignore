@@ -5,3 +5,4 @@ ignored_files/
 __pycache__
 
 test.db
+.coverage

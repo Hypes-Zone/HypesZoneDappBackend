@@ -1,10 +1,11 @@
 import time
 
+from tests.authentication.mock_user_data import user_model, user_session_model  # noqa
 
 from authentication.services.JWTService import JWTService
 
 
-def test_jwt_services(db_session, user_model, user_session_model):
+def test_jwt_services(db_session, user_model, user_session_model):  # noqa
     # Setup
     jwt_service = JWTService(public_key=user_model.public_key, user_session=user_session_model, db=db_session)
 
