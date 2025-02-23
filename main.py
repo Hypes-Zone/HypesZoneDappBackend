@@ -8,10 +8,10 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 
-from db.connector import Base, engine
+from db.connector import Base, engine  # noqa
 
-from authentication.api.authentication import authentication_routers
-from user.api.users import user_routers
+from authentication.api.authentication import authentication_routers  # noqa
+from user.api.users import user_routers  # noqa
 
 origins = [
     "*"

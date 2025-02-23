@@ -24,12 +24,12 @@ os.environ["JWT_ALGORITHM"] = os.getenv("TEST_ALGORITHM", "HS256")
 os.environ["JWT_EXPIRES_IN"] = os.getenv("TEST_EXPIRES_IN", "5")
 
 
-from db.connector import Base, get_db
-from main import app
+from db.connector import Base, get_db  # noqa
+from main import app  # noqa
 
 
 @pytest.fixture(autouse=True)
-def app() -> Generator[FastAPI, Any, None]:
+def app() -> Generator[FastAPI, Any, None]:  # noqa
     """
     Create a fresh database on each test case.
     """

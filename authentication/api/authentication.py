@@ -29,7 +29,7 @@ async def get_csrf_message(data: dict, db: Session = Depends(get_db)):
         return {"message": "Public Key is required"}
 
     # Get or Create a User
-    user = user_services.get_or_create_user(public_key=public_key, db=db)
+    user_services.get_or_create_user(public_key=public_key, db=db)
 
     # Get or Create a User Session
     user_session = user_session_services.get_or_create_user_session(public_key=public_key, db=db)
@@ -70,5 +70,5 @@ async def sign_in(data: dict, db: Session = Depends(get_db)):
     # Get a JWT token
     jwt_service = JWTService(public_key=public_key, user_session=user_session, db=db)
     jwt_token = jwt_service.get_new_jwt_token()
-    return {"jwt": "JWT_TOKEN"}
+    return {"jwt": jwt_token}
 

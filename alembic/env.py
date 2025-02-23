@@ -9,7 +9,7 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
 
-from db.connector import Base, SQLALCHEMY_DATABASE_URL
+from db.connector import Base, SQLALCHEMY_DATABASE_URL  # noqa
 
 # Import all models here
 
