@@ -23,7 +23,7 @@ class UserSessionModel(Base):
 
     signed_message = Column(String, nullable=True)
 
-    csrf_token = Column(String, nullable=False, default=uuid4())
+    csrf_token = Column(String, nullable=False, default=str(uuid4()))
 
     created_at = Column(String, server_default=datetime.now().strftime("%m-%d-%Y %H:%M:%S"))
     updated_at = Column(String, server_default=datetime.now().strftime("%m-%d-%Y %H:%M:%S"), onupdate=datetime.now().strftime("%m-%d-%Y %H:%M:%S"))

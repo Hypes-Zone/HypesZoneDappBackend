@@ -17,9 +17,11 @@ def get_engine():
 def get_session():
     return sessionmaker(autocommit=False, autoflush=False, bind=get_engine())
 
-
+# Set env variables for testing
 os.environ["ALCHEMY_DB_URL"] = os.getenv("TEST_ALCHEMY_DB_URL", "sqlite:///test.db")
-os.environ["SECRET_KEY"] = os.getenv("TEST_SECRET_KEY", "testsecret")
+os.environ["JWT_SHARED_SECRET"] = os.getenv("TEST_SECRET_KEY", "testsecret")
+os.environ["JWT_ALGORITHM"] = os.getenv("TEST_ALGORITHM", "HS256")
+os.environ["JWT_EXPIRES_IN"] = os.getenv("TEST_EXPIRES_IN", "5")
 
 
 from db.connector import Base, get_db

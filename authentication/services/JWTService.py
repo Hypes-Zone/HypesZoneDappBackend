@@ -20,6 +20,7 @@ class JWTService:
         self.shared_secret = settings.JWT_SHARED_SECRET
         self.algorithm = settings.JWT_ALGORITHM
         self.expires_in = settings.JWT_EXPIRES_IN
+        self.audience = "Hypes Zone"
 
     def _get_jwt_header(self):
         """
@@ -46,31 +47,31 @@ class JWTService:
         """
         return {
             "public_key": self.public_key,
-            "iss": "Hypes Zone",
+            "iss": self.audience,
             "sub": "Authentication",
-            "aud": "Hypes Zone",
-            "exp": datetime.now(timezone.utc) + timedelta(seconds=self.expires_in),
-            "iat": f"{datetime.now()}",
-            "nbf": f"{datetime.now()}",
+            "aud": self.audience,
+            "exp": int((datetime.now(timezone.utc) + timedelta(seconds=self.expires_in)).timestamp()),
+            "iat": int(datetime.now().timestamp()),
+            "nbf": int(datetime.now().timestamp()),
             "user_settings": {
                 "role": "young ling"
             }
         }
+
+    def _get_secret_key(self):
+        user_session_jwt_secret = get_jwt_secret(user_session=self.user_session, db=self.db)
+        return f"{self.shared_secret}{user_session_jwt_secret}"
 
     def get_new_jwt_token(self):
         """
         Based on the public key address and the shared secret create a JWT token
         :return:
         """
-        user_session_jwt_secret = get_jwt_secret(user_session=self.user_session, db=self.db)
-
-        jwt_secret = f"{self.shared_secret}{user_session_jwt_secret}"
-
         jwt_header = self._get_jwt_header()
         jwt_payload = self._payload_jwt_token()
         jwt_header.update(jwt_payload)
 
-        jwt_token = jwt.encode(jwt_header, jwt_secret, self.algorithm)
+        jwt_token = jwt.encode(jwt_header, self._get_secret_key(), self.algorithm)
         save_jwt_token(user_session=self.user_session, jwt_token=jwt_token, db=self.db)
 
         return jwt_token
@@ -82,7 +83,7 @@ class JWTService:
         :return:
         """
         try:
-            jwt.decode(jwt_token, self.shared_secret, algorithms=[self.algorithm])
+            jwt.decode(jwt_token, self._get_secret_key(), algorithms=[self.algorithm], audience=self.audience)
             return False
         except jwt.ExpiredSignatureError:
             return True
