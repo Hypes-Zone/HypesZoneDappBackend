@@ -12,7 +12,6 @@ load_dotenv(find_dotenv())
 from db.connector import Base, SQLALCHEMY_DATABASE_URL
 
 # Import all models here
-from user.models.user import UserModel, UserSessionModel
 
 
 # this is the Alembic Config object, which provides

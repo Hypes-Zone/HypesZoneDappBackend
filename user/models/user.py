@@ -1,9 +1,9 @@
 from uuid import uuid4
 
-from datetime import datetime, date, time
+from datetime import datetime
 
 from db.connector import Base
-from sqlalchemy import Column, Integer, String, TIMESTAMP, Boolean, text, ForeignKey, DateTime
+from sqlalchemy import Column, String
 
 
 class UserModel(Base):

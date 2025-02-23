@@ -1,6 +1,5 @@
 import time
 
-from tests.authentication.mock_user_data import user_model, user_session_model
 
 from authentication.services.JWTService import JWTService
 

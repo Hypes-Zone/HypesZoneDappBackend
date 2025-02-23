@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, orm
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 from settings.hzsettings import get_settings
