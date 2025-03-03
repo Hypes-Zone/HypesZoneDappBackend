@@ -12,6 +12,7 @@ from db.connector import Base, engine  # noqa
 
 from authentication.api.authentication import authentication_routers  # noqa
 from user.api.users import user_routers  # noqa
+from chat.api.chat import chat_routers  # noqa
 
 origins = [
     "*"
@@ -36,6 +37,7 @@ Base.metadata.create_all(bind=engine)
 
 app.include_router(authentication_routers)
 app.include_router(user_routers)
+app.include_router(chat_routers)
 
 @app.get("/")
 async def get():

@@ -21,6 +21,7 @@ class JWTService:
         self.algorithm = settings.JWT_ALGORITHM
         self.expires_in = settings.JWT_EXPIRES_IN
         self.audience = "Hypes Zone"
+        self.jwt_verified_payload = None
 
     def _get_jwt_header(self):
         """
@@ -83,11 +84,9 @@ class JWTService:
         :return:
         """
         try:
-            jwt.decode(jwt_token, self._get_secret_key(), algorithms=[self.algorithm], audience=self.audience)
+            self.jwt_verified_payload = jwt.decode(jwt_token, self._get_secret_key(), algorithms=[self.algorithm], audience=self.audience)
             return False
         except jwt.ExpiredSignatureError:
             return True
         except jwt.InvalidTokenError:
             return True
-        except Exception as e:
-            return f"Error processing JWT token: {str(e)}"

@@ -12,7 +12,9 @@ load_dotenv(find_dotenv())
 from db.connector import Base, SQLALCHEMY_DATABASE_URL  # noqa
 
 # Import all models here
-
+from user.models.user import UserModel  # noqa
+from user.models.user import UserSessionModel  # noqa
+from chat.models.single_chats import SingleChatModel  # noqa
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
