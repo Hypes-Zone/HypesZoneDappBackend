@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 
 from db.connector import Base
@@ -8,7 +9,7 @@ class SingleChatModel(Base):
     __tablename__ = "singlechats"
 
     # Room ID
-    room_id = Column(Integer, primary_key=True, nullable=False, unique=True, index=True)
+    room_id = Column(String, primary_key=True, nullable=False, unique=True, index=True, default=str(uuid.uuid4()))
 
     # User Initiator
     public_key_user_initiator = Column(String, primary_key=True, nullable=False)
