@@ -13,6 +13,7 @@ from fastapi import HTTPException
 
 security = HTTPBearer()
 
+
 def verify_jwt(
         credentials: HTTPAuthorizationCredentials = Depends(security),
         db: Session = Depends(get_db)
