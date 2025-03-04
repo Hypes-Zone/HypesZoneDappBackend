@@ -99,7 +99,6 @@ async def websocket_endpoint(
     if not user_session:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User not part of the chat room")
 
-
     try:
         await websocket.accept()
 
@@ -113,9 +112,14 @@ async def websocket_endpoint(
 
         while True:
             data = await websocket.receive_text()
-            await room.broadcast(data, websocket)
+            import json
+            await room.broadcast(json.dumps({
+                "roomId": room_id,
+                "message": data,
+                "sender": public_key
+            }), websocket)
     except Exception as e:
-        if room_id not in room_dict:
+        if room_id in room_dict:
             room = room_dict[room_id]
             room.connections.remove(websocket)
             if len(room.connections) == 0:
