@@ -1,3 +1,4 @@
+import uuid
 from typing import Type
 
 from sqlalchemy.orm import Session
@@ -63,7 +64,7 @@ def create_single_chat_if_none_exists(public_key_initiator: str, public_key_rece
 
     single_chat = SingleChatModel(
         public_key_user_initiator=public_key_initiator, public_key_user_receiver=public_key_receiver,
-        chat_accepted=True
+        chat_accepted=True, room_id=str(uuid.uuid4())
     )
     db.add(single_chat)
     db.commit()
